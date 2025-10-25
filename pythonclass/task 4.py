@@ -10,12 +10,19 @@ def calculate_factorial(number):
     return factorial_result
 
 
-def execute_calculations():
+def sequential_calculations(values):
+    for value in values:
+        calculate_factorial(value)
 
+
+def execute_calculations():
     values = [5, 10, 15, 20, 25]
 
     print("Beginning factorial computations...")
-    start_time = time.time()
+
+
+    print("--- Parallel Execution ---")
+    start_parallel = time.time()
 
     calculation_processes = []
     for value in values:
@@ -23,12 +30,21 @@ def execute_calculations():
         calculation_processes.append(process)
         process.start()
 
-
     for process in calculation_processes:
         process.join()
 
-    end_time = time.time()
-    print(f"All calculations completed in {end_time - start_time:.2f} seconds")
+    end_parallel = time.time()
+    parallel_time = end_parallel - start_parallel
+
+
+    print("\n--- Sequential Execution ---")
+    start_sequential = time.time()
+    sequential_calculations(values)
+    end_sequential = time.time()
+    sequential_time = end_sequential - start_sequential
+
+    print(f"\nParallel time: {parallel_time:.4f} seconds")
+    print(f"Sequential time: {sequential_time:.4f} seconds")
 
 
 if __name__ == "__main__":
