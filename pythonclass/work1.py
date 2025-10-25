@@ -28,20 +28,32 @@ def parallel_calc(N, procs):
     return sum(results)
 
 
-def main():
+def sequential_calc(N):
+    return sum(i * i for i in range(1, N + 1))
 
+
+def main():
     N = 100
     procs = multiprocessing.cpu_count()
 
     print(f"Calculating sum of squares for N = {N}")
     print(f"Using {procs} processes")
 
-    start = time.time()
-    result = parallel_calc(N, procs)
-    end = time.time()
+ 
+    start_parallel = time.time()
+    parallel_result = parallel_calc(N, procs)
+    end_parallel = time.time()
+    parallel_time = end_parallel - start_parallel
 
-    print(f"1² + 2² + ... + {N}² = {result}")
-    print(f"Time taken: {end - start:.2f} seconds")
+    
+    start_sequential = time.time()
+    sequential_result = sequential_calc(N)
+    end_sequential = time.time()
+    sequential_time = end_sequential - start_sequential
+
+    print(f"1² + 2² + ... + {N}² = {parallel_result}")
+    print(f"Parallel time: {parallel_time:.4f} seconds")
+    print(f"Sequential time: {sequential_time:.4f} seconds")
 
 
 if __name__ == "__main__":
