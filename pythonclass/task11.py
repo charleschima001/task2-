@@ -32,7 +32,6 @@ def process_files():
     end_sequential = time.time()
     sequential_time = end_sequential - start_sequential
 
-    # PARALLEL SECOND (no delay)
     print("\n--- Parallel Execution ---")
     start_parallel = time.time()
     
@@ -62,3 +61,4 @@ def process_files():
 
 if __name__ == "__main__":
     process_files()
+
